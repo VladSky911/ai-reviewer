@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# AI Reviewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> AI-powered code review tool built with React, TypeScript, and Claude API
 
-Currently, two official plugins are available:
+![AI Reviewer](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript)
+![Claude API](https://img.shields.io/badge/Claude-Sonnet-D4A027?style=flat)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat&logo=vite)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What it does
 
-## React Compiler
+Paste any code snippet, select a language, and get an instant AI-powered review categorized by severity:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔴 **Critical** — security vulnerabilities, crashes, data corruption
+- 🟡 **Warning** — bad practices, performance issues, potential bugs
+- 🔵 **Info** — style, readability, minor improvements
+- 🟢 **Good** — highlights what's done well
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Layer      | Technology                    |
+| ---------- | ----------------------------- |
+| Framework  | React 18 + TypeScript         |
+| Build tool | Vite                          |
+| Editor     | CodeMirror 6                  |
+| Styling    | Tailwind CSS v3               |
+| AI         | Claude Sonnet (Anthropic API) |
+| Streaming  | Fetch API with SSE            |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Architecture
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+src/
+├── components/
+│ ├── CodeEditor.tsx # CodeMirror editor with language support
+│ ├── IssueCard.tsx # Single review issue with severity badge
+│ ├── LanguageSelector.tsx # JS / TS / Python switcher
+│ └── ReviewPanel.tsx # Review results with skeleton loader
+├── hooks/
+│ └── useReview.ts # State management for review flow
+├── services/
+│ └── claude.service.ts # Claude API + SSE streaming
+├── prompts/
+│ └── review.prompt.ts # Structured prompt with severity rules
+└── types/
+└── index.ts # Shared TypeScript types
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Key technical decisions
+
+**Streaming responses** — Claude API is consumed via Server-Sent Events so results appear token by token, giving instant feedback instead of waiting for the full response.
+
+**Prompt as a module** — The review prompt lives in `src/prompts/` as a typed function, making it easy to version, test, and swap independently from the API layer.
+
+**Structured JSON output** — The prompt enforces a strict JSON schema so the response can be parsed directly into typed `Issue[]` without any post-processing heuristics.
+
+## Getting started
+
+1. Clone the repo
+
+```bash
+   git clone https://github.com/YOUR_USERNAME/ai-reviewer.git
+   cd ai-reviewer
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+   npm install
 ```
+
+3. Run the dev server
+
+```bash
+   npm run dev
+```
+
+4. Open `http://localhost:5173`, click **Review code** and paste your Anthropic API key when prompted
+
+> Get your API key at [console.anthropic.com](https://console.anthropic.com)
+
+## License
+
+MIT
