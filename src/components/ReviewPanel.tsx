@@ -1,4 +1,4 @@
-import { Issue, Severity } from '../types'
+import type { Language } from './types/index'
 import { IssueCard } from './IssueCard'
 
 interface Props {

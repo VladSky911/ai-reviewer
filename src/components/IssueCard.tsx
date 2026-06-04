@@ -1,5 +1,4 @@
-import { Issue, Severity } from '../types'
-
+import type { Issue, Severity } from '../types/index'
 interface Props {
   issue: Issue
 }
