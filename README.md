@@ -2,6 +2,8 @@
 
 > AI-powered code review tool built with React, TypeScript, and Claude API
 
+**[Live Demo →](https://ai-reviewer-seven.vercel.app)**
+
 ![AI Reviewer](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript)
 ![Claude API](https://img.shields.io/badge/Claude-Sonnet-D4A027?style=flat)
