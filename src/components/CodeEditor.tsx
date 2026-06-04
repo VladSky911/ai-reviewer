@@ -2,7 +2,7 @@ import CodeMirror from '@uiw/react-codemirror'
 import { javascript } from '@codemirror/lang-javascript'
 import { python } from '@codemirror/lang-python'
 import { oneDark } from '@codemirror/theme-one-dark'
-import type { Language } from './types/index'
+import type { Language } from '../types/index'
 
 interface Props {
   code: string

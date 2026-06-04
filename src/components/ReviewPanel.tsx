@@ -1,4 +1,4 @@
-import type { Language } from './types/index'
+import type { Issue, Severity } from '../types/index'
 import { IssueCard } from './IssueCard'
 
 interface Props {

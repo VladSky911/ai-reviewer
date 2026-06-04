@@ -1,4 +1,4 @@
-import type { Language } from './types/index'
+import type { Language } from '../types/index'
 
 interface Props {
   value: Language
