@@ -1,84 +1,268 @@
-# AI Reviewer
+# 🤖 AI Reviewer — AI-Powered Code Review Tool
 
-> AI-powered code review tool built with React, TypeScript, and Claude API
+**AI Reviewer** is a real-time AI code review tool that analyzes code snippets and provides **structured, severity-based feedback** using modern LLMs.
 
-**[Live Demo →](https://ai-reviewer-seven.vercel.app)**
+> ⚡ Designed for developers who want instant feedback without waiting for human review.
 
-![AI Reviewer](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript)
-![Claude API](https://img.shields.io/badge/Claude-Sonnet-D4A027?style=flat)
-![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat&logo=vite)
+---
 
-## What it does
+## 🚀 Live Demo
 
-Paste any code snippet, select a language, and get an instant AI-powered review categorized by severity:
+👉 https://ai-reviewer-seven.vercel.app
 
-- 🔴 **Critical** — security vulnerabilities, crashes, data corruption
-- 🟡 **Warning** — bad practices, performance issues, potential bugs
-- 🔵 **Info** — style, readability, minor improvements
-- 🟢 **Good** — highlights what's done well
+---
 
-## Tech stack
+## 🧠 Overview
 
-| Layer      | Technology                    |
-| ---------- | ----------------------------- |
-| Framework  | React 18 + TypeScript         |
-| Build tool | Vite                          |
-| Editor     | CodeMirror 6                  |
-| Styling    | Tailwind CSS v3               |
-| AI         | Claude Sonnet (Anthropic API) |
-| Streaming  | Fetch API with SSE            |
+Code reviews are essential — but slow.
 
-## Architecture
+AI Reviewer solves this by providing:
 
+* instant feedback
+* structured issue categorization
+* actionable improvements
+
+All in a **developer-friendly UI with real-time streaming responses**.
+
+---
+
+## ✨ Core Features
+
+### ⚡ Instant AI Code Review
+
+* Paste any code snippet
+* Select programming language
+* Get structured feedback in seconds
+
+---
+
+### 🚦 Severity-Based Analysis
+
+Each issue is categorized for clarity:
+
+* 🔴 **Critical**
+
+  * Security vulnerabilities
+  * Crashes
+  * Data corruption risks
+
+* 🟡 **Warning**
+
+  * Performance issues
+  * Anti-patterns
+  * Potential bugs
+
+* 🔵 **Info**
+
+  * Readability improvements
+  * Code style suggestions
+
+* 🟢 **Good**
+
+  * Highlights of well-written code
+
+---
+
+### 🔄 Real-Time Streaming (SSE)
+
+* Uses **Server-Sent Events**
+* Response appears token-by-token
+* Eliminates “waiting time” UX
+
+---
+
+### 🧩 Structured Output (JSON)
+
+* Strict response schema enforced via prompt
+* Parsed directly into typed objects
+* No regex or fragile parsing
+
+---
+
+### 💻 Developer-Focused UX
+
+* CodeMirror 6 editor with syntax highlighting
+* Language switching (JS / TS / Python)
+* Clean review panel with categorized issues
+* Skeleton loaders for better perceived performance
+
+---
+
+## 🏗 Architecture
+
+### Frontend
+
+* React 18
+* TypeScript
+* Vite
+* Tailwind CSS
+
+### Editor
+
+* CodeMirror 6
+
+### AI Layer
+
+* Claude Sonnet (Anthropic API)
+* Streaming via Fetch + SSE
+
+---
+
+### 🔄 Data Flow
+
+```
+User Input → Prompt Builder → Claude API (SSE) → Stream Parser → UI Rendering
+```
+
+---
+
+## 🔧 Key Technical Decisions
+
+### 1. Streaming via SSE
+
+Instead of waiting for full responses:
+
+* Faster perceived performance
+* Progressive rendering of results
+* Better developer experience
+
+---
+
+### 2. Prompt as a First-Class Module
+
+```
+src/prompts/review.prompt.ts
+```
+
+* Fully typed prompt generator
+* Easy to version and improve
+* Decoupled from API logic
+
+---
+
+### 3. Strict JSON Schema Output
+
+The model is forced to return:
+
+* predictable structure
+* typed `Issue[]`
+* no post-processing hacks
+
+---
+
+### 4. Separation of Concerns
+
+* UI → components/
+* Logic → hooks/
+* API → services/
+* Prompt → prompts/
+
+Clean and scalable architecture.
+
+---
+
+## 📂 Project Structure
+
+```
 src/
 ├── components/
-│ ├── CodeEditor.tsx # CodeMirror editor with language support
-│ ├── IssueCard.tsx # Single review issue with severity badge
-│ ├── LanguageSelector.tsx # JS / TS / Python switcher
-│ └── ReviewPanel.tsx # Review results with skeleton loader
 ├── hooks/
-│ └── useReview.ts # State management for review flow
 ├── services/
-│ └── claude.service.ts # Claude API + SSE streaming
 ├── prompts/
-│ └── review.prompt.ts # Structured prompt with severity rules
 └── types/
-└── index.ts # Shared TypeScript types
-
-## Key technical decisions
-
-**Streaming responses** — Claude API is consumed via Server-Sent Events so results appear token by token, giving instant feedback instead of waiting for the full response.
-
-**Prompt as a module** — The review prompt lives in `src/prompts/` as a typed function, making it easy to version, test, and swap independently from the API layer.
-
-**Structured JSON output** — The prompt enforces a strict JSON schema so the response can be parsed directly into typed `Issue[]` without any post-processing heuristics.
-
-## Getting started
-
-1. Clone the repo
-
-```bash
-   git clone https://github.com/YOUR_USERNAME/ai-reviewer.git
-   cd ai-reviewer
 ```
 
-2. Install dependencies
+---
+
+## 🧠 Why This Project Matters
+
+This project demonstrates:
+
+* Advanced AI integration in frontend apps
+* Streaming architectures (SSE)
+* Prompt engineering with structured outputs
+* Clean separation of concerns
+* Developer tooling mindset
+
+---
+
+## 🛠 Tech Stack
+
+* **Frontend:** React 18, TypeScript, Vite
+* **Editor:** CodeMirror 6
+* **Styling:** Tailwind CSS
+* **AI:** Claude Sonnet (Anthropic API)
+* **Streaming:** Fetch API + SSE
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Clone repository
 
 ```bash
-   npm install
+git clone https://github.com/YOUR_USERNAME/ai-reviewer.git
+cd ai-reviewer
 ```
 
-3. Run the dev server
+---
+
+### 2. Install dependencies
 
 ```bash
-   npm run dev
+npm install
 ```
 
-4. Open `http://localhost:5173`, click **Review code** and paste your Anthropic API key when prompted
+---
 
-> Get your API key at [console.anthropic.com](https://console.anthropic.com)
+### 3. Run development server
 
-## License
+```bash
+npm run dev
+```
 
-MIT
+---
+
+### 4. Open in browser
+
+```
+http://localhost:5173
+```
+
+Paste your **Anthropic API key** when prompted.
+
+---
+
+## 🔐 Security Notes
+
+* API key is entered client-side (for demo purposes)
+* For production:
+
+  * move to backend proxy
+  * use environment variables
+  * avoid exposing keys in frontend
+
+---
+
+## 💡 Future Improvements
+
+* GitHub PR integration
+* Inline code annotations
+* Multi-file analysis
+* Team collaboration mode
+* Custom rule sets (lint-style configs)
+* AI fine-tuned for specific languages
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 👤 Author
+
+**Vladimir**
+AI Developer · Fullstack Builder
+
